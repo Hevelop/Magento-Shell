@@ -1,7 +1,9 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..'
-    . DIRECTORY_SEPARATOR . 'abstract.php';
+chdir(__DIR__ . '/../../');
+$mageBaseDir = getcwd();
+
+require_once $mageBaseDir . DIRECTORY_SEPARATOR . 'shell' . DIRECTORY_SEPARATOR . 'abstract.php';
 
 abstract class Local_Shell_Abstract extends Mage_Shell_Abstract
 {
@@ -70,7 +72,7 @@ abstract class Local_Shell_Abstract extends Mage_Shell_Abstract
      */
     public function __construct()
     {
-        $this->_timeStart        = (float) microtime(true);
+        $this->_timeStart = (float)microtime(true);
         $this->_memoryUsageStart = $this->getMemoryUsage();
         parent::__construct();
         $this->initLog();
@@ -147,7 +149,7 @@ abstract class Local_Shell_Abstract extends Mage_Shell_Abstract
             $bits = explode('.', $bits[count($bits) - 1]);
             $this->logFile = 'shell_local_' . $bits[0] . '.log';
         }
-        $logDir  = Mage::getBaseDir('var') . DS . 'log';
+        $logDir = Mage::getBaseDir('var') . DS . 'log';
         $logFile = $logDir . DS . $this->logFile;
         if (!is_dir($logDir)) {
             mkdir($logDir);
@@ -157,8 +159,8 @@ abstract class Local_Shell_Abstract extends Mage_Shell_Abstract
             file_put_contents($logFile, '');
             chmod($logFile, 0777);
         }
-        $writer    = new Zend_Log_Writer_Stream($logFile);
-        $format    = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
+        $writer = new Zend_Log_Writer_Stream($logFile);
+        $format = '%timestamp% %priorityName% (%priority%): %message%' . PHP_EOL;
         $formatter = new Zend_Log_Formatter_Simple($format);
         $writer->setFormatter($formatter);
         $this->log->addWriter($writer);
