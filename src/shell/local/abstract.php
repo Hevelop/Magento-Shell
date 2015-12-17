@@ -1,9 +1,6 @@
 <?php
 
-chdir(__DIR__ . '/../../');
-$mageBaseDir = getcwd();
-
-require_once $mageBaseDir . DIRECTORY_SEPARATOR . 'shell' . DIRECTORY_SEPARATOR . 'abstract.php';
+require_once  'shell' . DIRECTORY_SEPARATOR . 'abstract.php';
 
 abstract class Local_Shell_Abstract extends Mage_Shell_Abstract
 {
